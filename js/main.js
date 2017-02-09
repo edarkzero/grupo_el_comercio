@@ -2,23 +2,22 @@
 var number_count = 1;
 
 //Cuando esta listo el DOM de elementos
-$(function() {
+$(function () {
 
     //Manejo de eventos de boton "mas numeros" el cual agregara mas numeros en la interfaz
-    $('#btn-more').click(function(e){
+    $('#btn-more').click(function (e) {
         addNumberInput();
     });
 
     //Manejo de cambios en INPUT de numeros
-    $(document).on('keyup change','.number-input',function (e) {
+    $(document).on('keyup change', '.number-input', function (e) {
         checkNumbers($(this));
     })
 
 });
 
 //Funcion para añadir plantilla para un nuevo numero
-function addNumberInput()
-{
+function addNumberInput() {
     var template_begin = '<input class="number-input" type="number" name="number[]" id="input-';
     var template_last = '" min="0">';
 
@@ -26,15 +25,14 @@ function addNumberInput()
     $('#dynamic-number-wrapper').append(template_begin + number_count + template_last);
 
     //Forzar foco en nuevo input
-    $('#input-'+number_count).focus();
+    $('#input-' + number_count).focus();
 
     //actualiza contandor de numeros
     number_count++;
 }
 
 //Funcion para verificar que los numeros no estan repetidos, recibe el elemento que inicio el evento
-function checkNumbers($elem)
-{
+function checkNumbers($elem) {
     var numbers = [];
     var $numberInput = $('.number-input');
 
@@ -47,38 +45,40 @@ function checkNumbers($elem)
         $numberInput.each(function (j) {
 
             //Si los indices son distintos y el valor a comparar es igual al actual, existe un duplicado
-            if(i != j && valToComp != '' && valToComp == $(this).val())
+            if (i != j && valToComp != '' && valToComp == $(this).val())
                 duplicated = true;
         });
 
         //Deplicado encontrado
-        if(duplicated)
+        if (duplicated)
             $elem.val('');
 
         //Sin duplicados
-        if($(this).val() != '')
+        if ($(this).val() != '')
             numbers.push($(this).val());
     });
 
     //Limpiando resultados anteriores
     $('#original-wrapper,#result-wrapper').html('');
 
-    var numbers_last_index = numbers.length-1;
+    var numbers_last_index = numbers.length - 1;
 
     ///Array original
-    $.each(numbers,function (index, value) {
+    $.each(numbers, function (index, value) {
         var separator = numbers_last_index == index ? '.' : ',';
         var $wrapper = $('#original-wrapper');
-        if(index == 0) $wrapper.append('<h5>Original</h5>');
-        $wrapper.append('<b>'+value+',</b>');
+        if (index == 0) $wrapper.append('<h5>Original</h5>');
+        $wrapper.append('<b>' + value + ',</b>');
     });
 
     //Array ordenado
-    numbers.sort(function(a,b){return a-b});
-    $.each(numbers,function (index, value) {
+    numbers.sort(function (a, b) {
+        return a - b
+    });
+    $.each(numbers, function (index, value) {
         var separator = numbers_last_index == index ? '.' : ',';
         var $wrapper = $('#result-wrapper');
-        if(index == 0) $wrapper.append('<h5>Ordenado</h5>');
-        $wrapper.append('<b>'+value+separator+'</b>');
+        if (index == 0) $wrapper.append('<h5>Ordenado</h5>');
+        $wrapper.append('<b>' + value + separator + '</b>');
     });
 }
