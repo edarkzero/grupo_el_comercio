@@ -45,10 +45,7 @@ function checkNumbers($elem)
 
             //Si los indices son distintos y el valor a comparar es igual al actual, existe un duplicado
             if(i != j && valToComp != '' && valToComp == $(this).val())
-            {
-                console.log('Repetido i:'+i+', j:'+j);
                 duplicated = true;
-            }
         });
 
         //Deplicado encontrado
