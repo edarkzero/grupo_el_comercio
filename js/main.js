@@ -68,13 +68,15 @@ function checkNumbers($elem) {
         var separator = numbers_last_index == index ? '.' : ',';
         var $wrapper = $('#original-wrapper');
         if (index == 0) $wrapper.append('<h5>Original</h5>');
-        $wrapper.append('<b>' + value + ',</b>');
+        $wrapper.append('<b>' + value + separator + '</b>');
     });
 
-    //Array ordenado
+    //Array ordenado (esta funcion anonima soluciona el problema de ordenamiento,
+    //pues JS trata esto como String o Mixto, mas no Integer
     numbers.sort(function (a, b) {
         return a - b
     });
+
     $.each(numbers, function (index, value) {
         var separator = numbers_last_index == index ? '.' : ',';
         var $wrapper = $('#result-wrapper');
