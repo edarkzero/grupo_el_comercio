@@ -25,6 +25,9 @@ function addNumberInput()
     //Añade al final del elemento seleccionado la plantilla con un ID unico basado en la variable number_count
     $('#dynamic-number-wrapper').append(template_begin + number_count + template_last);
 
+    //Forzar foco en nuevo input
+    $('#input-'+number_count).focus();
+
     //actualiza contandor de numeros
     number_count++;
 }
@@ -60,18 +63,22 @@ function checkNumbers($elem)
     //Limpiando resultados anteriores
     $('#original-wrapper,#result-wrapper').html('');
 
+    var numbers_last_index = numbers.length-1;
+
     ///Array original
     $.each(numbers,function (index, value) {
+        var separator = numbers_last_index == index ? '.' : ',';
         var $wrapper = $('#original-wrapper');
         if(index == 0) $wrapper.append('<h5>Original</h5>');
         $wrapper.append('<b>'+value+',</b>');
     });
 
     //Array ordenado
-    numbers.sort();
+    numbers.sort(function(a,b){return a-b});
     $.each(numbers,function (index, value) {
+        var separator = numbers_last_index == index ? '.' : ',';
         var $wrapper = $('#result-wrapper');
         if(index == 0) $wrapper.append('<h5>Ordenado</h5>');
-        $wrapper.append('<b>'+value+',</b>');
+        $wrapper.append('<b>'+value+separator+'</b>');
     });
 }
